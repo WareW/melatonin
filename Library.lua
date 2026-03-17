@@ -4923,7 +4923,7 @@
                 Section:Dropdown({Name = "Tweening Style", Options = {"Linear", "Sine", "Back", "Quad", "Quart", "Quint", "Bounce", "Elastic", "Exponential", "Circular", "Cubic"}, Flag = "LibraryEasingStyle", Default = "Quint", Callback = function(Option)
                     Library.EasingStyle = Enum.EasingStyle[Option]
                 end});
-                Section:Label({Name = "Menu Bind"}):Keybind({Name = "Menu Bind", Key = Enum.KeyCode.E, Callback = function(bool) 
+                                Section:Label({Name = "Menu Bind"}):Keybind({Name = "Menu Bind", Key = Enum.KeyCode.E, Callback = function(bool) 
                     print(bool)
                     Window.SetVisible(bool) 
                 end})
@@ -4935,7 +4935,9 @@
                     Library.KeybindList.Items.Holder.Visible = bool 
                     Library.KeybindList.Items.List.Visible = bool 
                 end})
-
+                Section:Textbox({Name = "water", Default = Window.Name, Callback = function(text)
+                    Window.Name = text
+                end})
                 Section:Dropdown({Name = "Font", Options = FontIndexes, Callback = function(option)
                     for _,text in themes.utility.text_color.TextColor3 do 
                         text.FontFace = Fonts[option]
@@ -4953,8 +4955,18 @@
                         Library.Blur.Size = int
                     end 
                 end})
+                Section:Button({Name = "Notification test", Callback = function()
+                    local Notification = Library:Notification({Name = "Hello there!", Lifetime = 5})
+                    Notification:NotificationButton({Name = "Discard", Callback = function()
+                        Notification.DestroyNotif()
+                    end})
+                    Notification:NotificationButton({Name = "Make another", Callback = function()
+                    end})
+                end})
+            -- 
         end
     --
+        
         
     -- Notification Library
         local Notifications = Library.Notifications
