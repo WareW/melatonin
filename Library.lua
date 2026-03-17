@@ -47,14 +47,14 @@
         preset = {
             inline = rgb(46, 46, 46),
             outline = rgb(10, 10, 15),
-            accent = rgb(143, 197, 245),
+            accent = rgb(19, 128, 225),
             background = rgb(20, 20, 25),              
             misc_1 = rgb(30, 30, 35),
             text_color = rgb(245, 245, 245),
             unselected = rgb(145, 145, 145),
             tooltip = rgb(73, 73, 73),
             misc_2 = rgb(23, 23, 28),
-            font = "Tahoma",
+            font = "ProggyClean",
             textsize = 12
         },
         utility = {},
@@ -4972,7 +4972,6 @@
         end
     --
         
-        
     -- Notification Library
         local Notifications = Library.Notifications
 
@@ -5310,7 +5309,7 @@
             ["Healthbar_Medium"] = { Color = rgb(17, 30, 211), Transparency = 1 }; --
             ["Healthbar_Animations"] = false; 
             ["Healthbar_High"] = { Color = rgb(173, 69, 86), Transparency = 1 }; -- 
-            ["Healthbar_Font"] = "Tahoma";
+            ["Healthbar_Font"] = "ProggyClean";
             ["Healthbar_Text_Size"] = 12;
             ["Healthbar_Thickness"] = 1;
             ["Healthbar_Tween"] = false;
@@ -5322,13 +5321,13 @@
             ["Name_Text"] = false; 
             ["Name_Text_Color"] = { Color = rgb(255, 255, 255) };
             ["Name_Text_Position"] = "Top";
-            ["Name_Text_Font"] = "Tahoma";
+            ["Name_Text_Font"] = "ProggyClean";
             ["Name_Text_Size"] = 12;
             
             ["Distance_Text"] = false; 
             ["Distance_Text_Color"] = { Color = rgb(255, 255, 255) };
             ["Distance_Text_Position"] = "Bottom";
-            ["Distance_Text_Font"] = "Tahoma";
+            ["Distance_Text_Font"] = "ProggyClean";
             ["Distance_Text_Size"] = 12;
         };  
 
