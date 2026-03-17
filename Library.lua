@@ -4928,11 +4928,11 @@
                 Section:Slider({Name = "Dragging Speed", Min = 0, Max = 1, Decimal = .01, Default = .05, Callback = function(num)
                     Library.DraggingSpeed = num
                 end})
-                Section:Label({Name = "Menu Bind"}):Keybind({Name = "Menu Bind", Key = Enum.KeyCode.E, Callback = function(bool) 
+                Section:Label({Name = "Menu Bind"}):Keybind({Name = "Menu Bind", Key = Enum.KeyCode.Insert, Callback = function(bool) 
                     print(bool)
                     Window.SetVisible(bool) 
                 end})
-                Window.Tweening = false
+                Window.Tweening = true
                 Section:Toggle({Name = "Toggle Watermark", Callback = function(bool)
                     Window.SetWatermarkVisible(bool)
                 end})
@@ -4947,7 +4947,7 @@
                     for _,text in themes.utility.text_color.TextColor3 do 
                         text.FontFace = Fonts[option]
                     end 
-                end, Default = "ProggyClean", Flag = "Menu Font"})
+                end, Default = "Tahoma", Flag = "Menu Font"})
                 Section:Slider({Name = "TextSize", Default = 12, Decimal = 1, Min = 1, Max = 30, Callback = function(int)
                     for _,text in themes.utility.text_color.TextColor3 do 
                         text.TextSize = int
