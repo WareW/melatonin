@@ -4927,7 +4927,7 @@
                     print(bool)
                     Window.SetVisible(bool) 
                 end})
-                Window.Tweening = true
+                Window.Tweening = false
                 Section:Toggle({Name = "Toggle Watermark", Callback = function(bool)
                     Window.SetWatermarkVisible(bool)
                 end})
