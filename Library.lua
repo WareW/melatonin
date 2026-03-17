@@ -54,7 +54,7 @@
             unselected = rgb(145, 145, 145),
             tooltip = rgb(73, 73, 73),
             misc_2 = rgb(23, 23, 28),
-            font = "Tahoma",
+            font = "ProggyClean",
             textsize = 12
         },
         utility = {},
