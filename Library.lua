@@ -4919,16 +4919,11 @@
                         seq.Color = rgbseq{rgbkey(0, themes.preset.misc_1), rgbkey(1, themes.preset.misc_2)}
                     end
                 end, Flag = "Element Gradient 2"})
-                Section:Slider({Name = "Tween Speed", Min = 0, Max = 3, Decimal = Library.DraggingSpeed, Default = .3, Callback = function(num)
-                    Library.TweeningSpeed = num
-                end})
+
                 Section:Dropdown({Name = "Tweening Style", Options = {"Linear", "Sine", "Back", "Quad", "Quart", "Quint", "Bounce", "Elastic", "Exponential", "Circular", "Cubic"}, Flag = "LibraryEasingStyle", Default = "Quint", Callback = function(Option)
                     Library.EasingStyle = Enum.EasingStyle[Option]
                 end});
-                Section:Slider({Name = "Dragging Speed", Min = 0, Max = 1, Decimal = .01, Default = .05, Callback = function(num)
-                    Library.DraggingSpeed = num
-                end})
-                Section:Label({Name = "Menu Bind"}):Keybind({Name = "Menu Bind", Key = Enum.KeyCode.RightShift, Callback = function(bool) 
+                Section:Label({Name = "Menu Bind"}):Keybind({Name = "Menu Bind", Key = Enum.KeyCode.E, Callback = function(bool) 
                     print(bool)
                     Window.SetVisible(bool) 
                 end})
@@ -4940,9 +4935,7 @@
                     Library.KeybindList.Items.Holder.Visible = bool 
                     Library.KeybindList.Items.List.Visible = bool 
                 end})
-                Section:Textbox({Name = "Custom Menu Name", Default = Window.Name, Callback = function(text)
-                    Window.Name = text
-                end})
+
                 Section:Dropdown({Name = "Font", Options = FontIndexes, Callback = function(option)
                     for _,text in themes.utility.text_color.TextColor3 do 
                         text.FontFace = Fonts[option]
@@ -5300,7 +5293,7 @@
             ["Healthbar_Medium"] = { Color = rgb(17, 30, 211), Transparency = 1 }; --
             ["Healthbar_Animations"] = false; 
             ["Healthbar_High"] = { Color = rgb(173, 69, 86), Transparency = 1 }; -- 
-            ["Healthbar_Font"] = "ProggyClean";
+            ["Healthbar_Font"] = "Tahoma";
             ["Healthbar_Text_Size"] = 12;
             ["Healthbar_Thickness"] = 1;
             ["Healthbar_Tween"] = false;
@@ -5312,13 +5305,13 @@
             ["Name_Text"] = false; 
             ["Name_Text_Color"] = { Color = rgb(255, 255, 255) };
             ["Name_Text_Position"] = "Top";
-            ["Name_Text_Font"] = "ProggyClean";
+            ["Name_Text_Font"] = "Tahoma";
             ["Name_Text_Size"] = 12;
             
             ["Distance_Text"] = false; 
             ["Distance_Text_Color"] = { Color = rgb(255, 255, 255) };
             ["Distance_Text_Position"] = "Bottom";
-            ["Distance_Text_Font"] = "ProggyClean";
+            ["Distance_Text_Font"] = "Tahoma";
             ["Distance_Text_Size"] = 12;
         };  
 
