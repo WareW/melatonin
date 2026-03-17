@@ -4928,7 +4928,7 @@
                 Section:Slider({Name = "Dragging Speed", Min = 0, Max = 1, Decimal = .01, Default = .05, Callback = function(num)
                     Library.DraggingSpeed = num
                 end})
-                Section:Label({Name = "Menu Bind"}):Keybind({Name = "Menu Bind", Key = Enum.KeyCode.E, Callback = function(bool) 
+                Section:Label({Name = "Menu Bind"}):Keybind({Name = "Menu Bind", Key = Enum.KeyCode.Insert, Callback = function(bool) 
                     print(bool)
                     Window.SetVisible(bool) 
                 end})
@@ -4960,7 +4960,16 @@
                         Library.Blur.Size = int
                     end 
                 end})
-
+                Section:Button({Name = "Test", Callback = function()
+                    local Notification = Library:Notification({Name = "Hello there!", Lifetime = 5})
+                    Notification:NotificationButton({Name = "Discard", Callback = function()
+                        Notification.DestroyNotif()
+                    end})
+                    Notification:NotificationButton({Name = "Make another", Callback = function()
+                    end})
+                end})
+            -- 
+        end
     --
         
     -- Notification Library
