@@ -4919,11 +4919,16 @@
                         seq.Color = rgbseq{rgbkey(0, themes.preset.misc_1), rgbkey(1, themes.preset.misc_2)}
                     end
                 end, Flag = "Element Gradient 2"})
-
+                Section:Slider({Name = "Tween Speed", Min = 0, Max = 3, Decimal = Library.DraggingSpeed, Default = .3, Callback = function(num)
+                    Library.TweeningSpeed = num
+                end})
                 Section:Dropdown({Name = "Tweening Style", Options = {"Linear", "Sine", "Back", "Quad", "Quart", "Quint", "Bounce", "Elastic", "Exponential", "Circular", "Cubic"}, Flag = "LibraryEasingStyle", Default = "Quint", Callback = function(Option)
                     Library.EasingStyle = Enum.EasingStyle[Option]
                 end});
-                                Section:Label({Name = "Menu Bind"}):Keybind({Name = "Menu Bind", Key = Enum.KeyCode.E, Callback = function(bool) 
+                Section:Slider({Name = "Dragging Speed", Min = 0, Max = 1, Decimal = .01, Default = .05, Callback = function(num)
+                    Library.DraggingSpeed = num
+                end})
+                Section:Label({Name = "Menu Bind"}):Keybind({Name = "Menu Bind", Key = Enum.KeyCode.E, Callback = function(bool) 
                     print(bool)
                     Window.SetVisible(bool) 
                 end})
@@ -4935,14 +4940,14 @@
                     Library.KeybindList.Items.Holder.Visible = bool 
                     Library.KeybindList.Items.List.Visible = bool 
                 end})
-                Section:Textbox({Name = "water", Default = Window.Name, Callback = function(text)
+                Section:Textbox({Name = "Custom Menu Name", Default = Window.Name, Callback = function(text)
                     Window.Name = text
                 end})
                 Section:Dropdown({Name = "Font", Options = FontIndexes, Callback = function(option)
                     for _,text in themes.utility.text_color.TextColor3 do 
                         text.FontFace = Fonts[option]
                     end 
-                end, Default = "Tahoma", Flag = "Menu Font"})
+                end, Default = "ProggyClean", Flag = "Menu Font"})
                 Section:Slider({Name = "TextSize", Default = 12, Decimal = 1, Min = 1, Max = 30, Callback = function(int)
                     for _,text in themes.utility.text_color.TextColor3 do 
                         text.TextSize = int
@@ -4955,7 +4960,7 @@
                         Library.Blur.Size = int
                     end 
                 end})
-                Section:Button({Name = "Notification test", Callback = function()
+                Section:Button({Name = "Test", Callback = function()
                     local Notification = Library:Notification({Name = "Hello there!", Lifetime = 5})
                     Notification:NotificationButton({Name = "Discard", Callback = function()
                         Notification.DestroyNotif()
