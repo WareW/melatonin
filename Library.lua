@@ -40,7 +40,7 @@
         EasingStyle = Enum.EasingStyle.Quint;
         TweeningSpeed = .3;
         DraggingSpeed = .05;
-        Tweening = true;
+        Tweening = false;
     }
 
     local themes = {
