@@ -8062,12 +8062,7 @@
                     });
                 -- 
             end       
-            if Data.Info.Humanoid then
-                Data.Info.Humanoid.HealthChanged:Connect(function(val)
-                    Data.HealthChanged(val)
-                end)
-                Data.HealthChanged(Data.Info.Humanoid.Health)
-            end
+
             Data.RefreshChams = function()
                 local Character = Data.Info.Character
                 
@@ -8177,22 +8172,31 @@
                 end 
             end
 
-            Data.RefreshDescendants = function() 
+Data.RefreshDescendants = function() 
+                -- This part handles both Players and Rigs
                 local Character = (typechar and player) or player.Character or player.CharacterAdded:Wait()
-                local Humanoid = Character:FindFirstChild("Humanoid") or Character:WaitForChild( "Humanoid" )
+                local Humanoid = Character:FindFirstChildOfClass("Humanoid") or Character:WaitForChild("Humanoid")
                 
                 Data.Info.Character = typechar and player or Character
                 Data.Info.Humanoid = Humanoid
                 Data.Info.RootPart = Humanoid.RootPart
 
-                Esp:Connection(Humanoid.HealthChanged, Data.HealthChanged)
-                Esp:Connection(Character.ChildAdded, Data.ToolAdded)
-                Esp:Connection(Character.ChildRemoved, Data.ToolAdded)
+                -- This is the important part:
+                if typechar then
+                    -- If it's a RIG: use simple connections
+                    Humanoid.HealthChanged:Connect(Data.HealthChanged)
+                else
+                    -- If it's a PLAYER: use the library's connection system
+                    Esp:Connection(Humanoid.HealthChanged, Data.HealthChanged)
+                    Esp:Connection(Character.ChildAdded, Data.ToolAdded)
+                    Esp:Connection(Character.ChildRemoved, Data.ToolAdded)
+                end
 
+                -- Trigger the first health update so the bar shows up immediately
                 Data.HealthChanged(Data.Info.Humanoid.Health)
 
                 Data.RefreshChams()
-            end 
+            end
 
             Data.Destroy = function()
                 if Items["Holder"] then 
