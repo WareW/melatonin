@@ -8173,7 +8173,6 @@
             end
 
 Data.RefreshDescendants = function() 
-Data.RefreshDescendants = function() 
                 local Character = (typechar and player) or player.Character or player.CharacterAdded:Wait()
                 local Humanoid = Character:FindFirstChildOfClass("Humanoid") or Character:WaitForChild("Humanoid")
                 
