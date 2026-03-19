@@ -7496,6 +7496,16 @@
                 Handles = { }, 
             }; Data.Chams = Data.Type == "player" and true or false;
 
+-- ADD THIS: Link the character and humanoid
+            if Data.Type == "rig" then
+                Data.Info.Character = player -- In this case, 'player' is the Rig Model
+                Data.Info.Humanoid = player:FindFirstChildOfClass("Humanoid")
+            else
+                -- Standard player logic
+                Data.Info.Character = player.Character
+                Data.Info.Humanoid = player.Character and player.Character:FindFirstChildOfClass("Humanoid")
+            end
+
             local Items = Data.Items; do
                 -- Holder
                     Items.Holder = Esp:Create( "Frame" , {
@@ -8018,7 +8028,7 @@
                         BorderColor3 = rgb(0, 0, 0);
                         Parent = Esp.Cache;
                         Name = "Left";
-                        Text = player.Name;
+                        Text = (typeof(player) == "Instance" and player.Name) or "Unknown";
                         BackgroundTransparency = 1;
                         Size = dim2(1, 0, 0, 0);
                         BorderSizePixel = 0;
@@ -8052,7 +8062,12 @@
                     });
                 -- 
             end       
-
+            if Data.Info.Humanoid then
+                Data.Info.Humanoid.HealthChanged:Connect(function(val)
+                    Data.HealthChanged(val)
+                end)
+                Data.HealthChanged(Data.Info.Humanoid.Health)
+            end
             Data.RefreshChams = function()
                 local Character = Data.Info.Character
                 
@@ -8279,6 +8294,41 @@
             if not Esp then 
                 return 
             end 
+-- This loop runs forever to move the boxes
+task.spawn(function()
+    while task.wait() do
+        for _, data in pairs(Esp.Players) do
+            -- 'data' is the table we created in Esp.CreateObject
+            local char = data.Info.Character
+            local hum = data.Info.Humanoid
+            local items = data.Items
+
+            if char and char.Parent and hum and hum.Health > 0 then
+                local root = char:FindFirstChild("HumanoidRootPart") or char:FindFirstChild("Torso")
+                
+                if root then
+                    -- This calculates the 2D position on your screen
+                    local size, pos, visible, dist = Esp:BoxSolve(root)
+                    
+                    items.Holder.Visible = visible
+                    if visible then
+                        -- This moves the ESP box to the Rig's position
+                        items.Holder.Size = UDim2.new(0, size.X, 0, size.Y)
+                        items.Holder.Position = UDim2.new(0, pos.X, 0, pos.Y)
+                        
+                        -- If you have a distance text, update it here:
+                        if items.Distance then
+                            items.Distance.Text = tostring(dist) .. " studs"
+                        end
+                    end
+                end
+            else
+                -- Hide it if the Rig is dead or gone
+                if items.Holder then items.Holder.Visible = false end
+            end
+        end
+    end
+end)
 
             if not MiscOptions.Enabled then
                 return 
@@ -8667,6 +8717,30 @@
     end
 
     Esp.Loop = RunService:BindToRenderStep("Run Loop", 400, Esp.Update)
--- 
+-- This function will scan for Rigs and add them to the ESP
+local function ScanForRigs()
+    for _, obj in ipairs(workspace:GetDescendants()) do
+        -- Check if it's a Model with a Humanoid, but NOT a real player
+        if obj:IsA("Model") and obj:FindFirstChildOfClass("Humanoid") then
+            if not game.Players:GetPlayerFromCharacter(obj) then
+                -- Only create it if it doesn't already exist in our ESP list
+                if not Esp.Players[obj] then 
+                    -- We use the model itself as the "player" argument
+                    Esp.Players[obj] = Esp.CreateObject(obj, "rig")
+                end
+            end
+        end
+    end
+end
+
+-- Start the background loop
+task.spawn(function()
+    while task.wait(5) do
+        ScanForRigs()
+    end
+end)
+
+-- Run it once immediately
+ScanForRigs()
 
 return Library, Esp, MiscOptions, Options 
