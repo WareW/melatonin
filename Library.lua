@@ -8173,7 +8173,7 @@
             end
 
 Data.RefreshDescendants = function() 
-                -- This part handles both Players and Rigs
+Data.RefreshDescendants = function() 
                 local Character = (typechar and player) or player.Character or player.CharacterAdded:Wait()
                 local Humanoid = Character:FindFirstChildOfClass("Humanoid") or Character:WaitForChild("Humanoid")
                 
@@ -8181,20 +8181,21 @@ Data.RefreshDescendants = function()
                 Data.Info.Humanoid = Humanoid
                 Data.Info.RootPart = Humanoid.RootPart
 
-                -- This is the important part:
-                if typechar then
-                    -- If it's a RIG: use simple connections
-                    Humanoid.HealthChanged:Connect(Data.HealthChanged)
+                -- This part makes the ESP actually update:
+                if typechar == "rig" then
+                    -- RIG LOGIC: Manual connection
+                    Humanoid.HealthChanged:Connect(function(val)
+                        Data.HealthChanged(val)
+                    end)
                 else
-                    -- If it's a PLAYER: use the library's connection system
+                    -- PLAYER LOGIC: Library connection
                     Esp:Connection(Humanoid.HealthChanged, Data.HealthChanged)
                     Esp:Connection(Character.ChildAdded, Data.ToolAdded)
                     Esp:Connection(Character.ChildRemoved, Data.ToolAdded)
                 end
 
-                -- Trigger the first health update so the bar shows up immediately
+                -- Force the first update
                 Data.HealthChanged(Data.Info.Humanoid.Health)
-
                 Data.RefreshChams()
             end
 
