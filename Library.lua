@@ -25,7 +25,7 @@
 
 -- Library init
     getgenv().Library = {
-        Directory = "water",
+        Directory = "weedhack",
         Folders = {
             "/fonts",
             "/configs",
@@ -47,14 +47,14 @@
         preset = {
             inline = rgb(46, 46, 46),
             outline = rgb(0, 0, 0),
-            accent = rgb(182, 221, 225), 
+            accent = rgb(24, 149, 27), 
             background = rgb(20, 20, 25),              
             misc_1 = rgb(30, 30, 35),
             text_color = rgb(255, 255, 255),
             unselected = rgb(106, 110, 131), 
             tooltip = rgb(139, 203, 230), 
             misc_2 = rgb(23, 23, 28),
-            font = "ProggyClean",
+            font = "Tahoma",
             textsize = 12
         },
         utility = {},
